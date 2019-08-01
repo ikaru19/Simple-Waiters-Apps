@@ -57,17 +57,26 @@ public class OrderDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvDetail);
         btnSaveOrder = findViewById(R.id.btnSaveOrder);
 
+
+        //make the qr code
         Bitmap myBitmap = QRCode.from(pesanan.getId()).bitmap();
         ivQr.setImageBitmap(myBitmap);
+
 
         tvDate.setText(pesanan.getTanggal());
         tvTime.setText(pesanan.getJam());
         tvMeja.setText(""+pesanan.getNomorMeja());
         tvHarga.setText("Rp "+pesanan.getTotal());
+
+
         adapter = new MenuAdapter(R.layout.item_menu_detail,pesanan.getMenus());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        //check the intent status delete or add
         position = getIntent().getIntExtra("position",-1);
+
+
         if (position > -1){
             btnSaveOrder.setText("Delete");
             btnSaveOrder.setOnClickListener(new View.OnClickListener() {
